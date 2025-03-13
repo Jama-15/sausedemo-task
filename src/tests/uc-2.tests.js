@@ -1,7 +1,7 @@
 import "../hooks/hooks";
 
 describe("Authorization page", function () {
-  it("Should submit login form with empty credentials", async function () {
+  it("Should submit login form with empty credentials by passing Username", async function () {
     const usernameInput = await $("input#user-name.input_error.form_input");
     const passwordInput = await $("input#password.input_error.form_input");
 
@@ -15,13 +15,10 @@ describe("Authorization page", function () {
     await usernameInput.setValue(randomUsername);
     await passwordInput.setValue(randomPassword);
 
-    await usernameInput.clearValue();
     await passwordInput.clearValue();
 
-    const usernameValue = await usernameInput.getValue();
     const passwordValue = await passwordInput.getValue();
 
-    await expect(usernameValue).toBe("");
     await expect(passwordValue).toBe("");
 
     await loginButton.click();
