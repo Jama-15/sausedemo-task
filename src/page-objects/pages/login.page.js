@@ -40,6 +40,11 @@ class LoginPage {
   async getErrorMessage() {
     return await this.errorMessage.getText();
   }
+
+  async login(username, password) {
+    await this.fillLoginForm(username, password);
+    await this.submitForm();
+  }
 }
 
 module.exports = new LoginPage();
