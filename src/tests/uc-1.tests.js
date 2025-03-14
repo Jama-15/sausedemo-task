@@ -1,33 +1,20 @@
 import "../hooks/hooks";
+import LoginPage from "../page-objects/pages/login.page";
 
 describe("Authorization page", function () {
   it("Should submit login form with empty credentials", async function () {
-    const usernameInput = await $("input#user-name.input_error.form_input");
-    const passwordInput = await $("input#password.input_error.form_input");
+    const loginButton = LoginPage.loginButton;
+    const errorMessage = LoginPage.errorMessage;
 
-    const loginButton = await $("input#login-button.submit-button.btn_action");
+    await LoginPage.clearLoginForm();
 
-    const errorMessage = await $("div.error-message-container.error");
-
-    const randomUsername = Math.random().toString(36).substring(2, 12);
-    const randomPassword = Math.random().toString().slice(2, 12);
-
-    await usernameInput.setValue(randomUsername);
-    await passwordInput.setValue(randomPassword);
-
-    await usernameInput.clearValue();
-    await passwordInput.clearValue();
-
-    const usernameValue = await usernameInput.getValue();
-    const passwordValue = await passwordInput.getValue();
-
+    const usernameValue = await LoginPage.getUsernameValue();
+    const passwordValue = await LoginPage.getPasswordValue();
     await expect(usernameValue).toBe("");
     await expect(passwordValue).toBe("");
 
     await loginButton.click();
 
-    await expect(errorMessage).toHaveText(
-      "Epic sadface: Username and password do not match any user in this service"
-    );
+    await expect(errorMessage).toHaveText("Epic sadface: Username is required");
   });
 });
