@@ -1,18 +1,18 @@
 class LoginPage {
   get usernameInput() {
-    return $("[data-test='username']");
+    return $('[data-test="username"]');
   }
 
   get passwordInput() {
-    return $("[data-test='password']");
+    return $('[data-test="password"]');
   }
 
   get loginButton() {
-    return $("[data-test='login-button']");
+    return $('[data-test="login-button"]');
   }
 
   get errorMessage() {
-    return $("div.error-message-container.error");
+    return $('[data-test="error"]');
   }
 
   async fillLoginForm(username, password) {
@@ -21,8 +21,18 @@ class LoginPage {
   }
 
   async clearLoginForm() {
-    await this.usernameInput.setValue("");
-    await this.passwordInput.setValue("");
+    await this.usernameInput.click();
+    await browser.keys(["Control", "a"]);
+    await browser.keys("Backspace");
+    await this.passwordInput.click();
+    await browser.keys(["Control", "a"]);
+    await browser.keys("Backspace");
+  }
+
+  async clearPassword() {
+    await this.passwordInput.click();
+    await browser.keys(["Control", "a"]);
+    await browser.keys("Backspace");
   }
 
   async submitForm() {
@@ -45,10 +55,6 @@ class LoginPage {
   async login(username, password) {
     await this.fillLoginForm(username, password);
     await this.submitForm();
-  }
-
-  async clearPassword() {
-    await this.passwordInput.clearValue();
   }
 }
 

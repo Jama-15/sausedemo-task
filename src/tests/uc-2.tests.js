@@ -15,6 +15,8 @@ describe("Authorization page", function () {
 
     await expect(passwordValue).toBe("");
 
+    await browser.pause(3000);
+
     await LoginPage.submitForm();
 
     await expect(LoginPage.errorMessage).toHaveText(
