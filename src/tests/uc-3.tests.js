@@ -1,19 +1,13 @@
 import "../hooks/hooks";
 import LoginPage from "../page-objects/pages/login.page";
+import users from "../data/users";
 
 describe("Login Tests", function () {
-  const usernames = [
-    "standard_user",
-    "locked_out_user",
-    "problem_user",
-    "performance_glitch_user",
-    "error_user",
-    "visual_user",
-  ];
-
-  usernames.forEach((username) => {
+  users.forEach(({ username, password }) => {
     it(`Should login successfully with username: ${username}`, async function () {
-      await LoginPage.login(username, "secret_sauce");
+      // Perform login with the provided username and password
+      await LoginPage.login(username, password);
+
       await expect(browser).toHaveTitle("Swag Labs");
     });
   });

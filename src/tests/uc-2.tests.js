@@ -3,24 +3,20 @@ import LoginPage from "../page-objects/pages/login.page";
 
 describe("Authorization page", function () {
   it("Should submit login form with empty credentials by passing Username", async function () {
-    const randomUsername = Math.random().toString(36).substring(2, 12);
-    const randomPassword = Math.random().toString().slice(2, 12);
+    const randomUsername = LoginPage.generateRandomUsername();
+    const randomPassword = LoginPage.generateRandomPassword();
 
-    await LoginPage.usernameInput.setValue(randomUsername);
-    await LoginPage.passwordInput.setValue(randomPassword);
+    await LoginPage.fillLoginForm(randomUsername, randomPassword);
 
     await LoginPage.clearPassword();
 
+    // Get the current value of the password field
     const passwordValue = await LoginPage.getPasswordValue();
 
+    // Assert that the password field is empty
     await expect(passwordValue).toBe("");
 
-    await browser.pause(3000);
-
     await LoginPage.submitForm();
-
-    await expect(LoginPage.errorMessage).toHaveText(
-      "Epic sadface: Password is required"
-    );
+    await LoginPage.checkErrorMessage("Epic sadface: Password is required");
   });
 });
