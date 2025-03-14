@@ -50,6 +50,21 @@ exports.config = {
   capabilities: [
     {
       browserName: "chrome",
+      "goog:chromeOptions": {
+        args: ["--headless"],
+      },
+    },
+    {
+      browserName: "firefox",
+      "moz:firefoxOptions": {
+        args: ["-headless"],
+      },
+    },
+    {
+      browserName: "MicrosoftEdge",
+      "ms:edgeOptions": {
+        args: ["--headless"],
+      },
     },
   ],
 
